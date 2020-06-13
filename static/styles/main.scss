@@ -1,0 +1,55 @@
+/* VARIABLES */
+$font: "Poppins", sans-serif;
+
+/* GLOBALS */
+body {
+    background-color: #ffffff;
+    color: #777777;
+    font-family: "Poppins", serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.625em;
+    position: relative;
+}
+
+/* HOME AREA */
+#nav {
+    background-color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    a {
+        text-decoration: none;
+        color: #222222;
+    }
+    #logo {
+        font-family: $font;
+        font-size: 24px;
+        font-weight: 400;
+    }
+    #resumeBtn:hover {
+        color: #ffffff;
+    }
+}
+.banner-area {
+    background-color: #f9f9ff;
+    h5 {
+        color: #222222;
+        font-family: $font;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    h2 {
+        font-family: $font;
+        color: #222222;
+        font-size: 30px;
+        font-weight: 600;
+    }
+    
+}
+.banner-right {
+    text-align: center;
+}
+.banner-area .fullscreen {
+    height: 650px !important;
+}

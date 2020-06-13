@@ -1,0 +1,62 @@
+/* VARIABLES */
+/* GLOBALS */
+body {
+  background-color: #ffffff;
+  color: #777777;
+  font-family: "Poppins", serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.625em;
+  position: relative;
+}
+
+/* HOME AREA */
+#nav {
+  background-color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  -webkit-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+          box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+#nav a {
+  text-decoration: none;
+  color: #222222;
+}
+
+#nav #logo {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+#nav #resumeBtn:hover {
+  color: #ffffff;
+}
+
+.banner-area {
+  background-color: #f9f9ff;
+}
+
+.banner-area h5 {
+  color: #222222;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.banner-area h2 {
+  font-family: "Poppins", sans-serif;
+  color: #222222;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.banner-right {
+  text-align: center;
+}
+
+.banner-area .fullscreen {
+  height: 650px !important;
+}
+/*# sourceMappingURL=main.css.map */
