@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 app = Flask(__name__)
 
 @app.route('/')
@@ -6,5 +6,7 @@ app = Flask(__name__)
 def index():
     return render_template('/home.html')
     
-
+@app.route('/blog')
+def blog():
+    return render_template('/blog.html')
 app.run(debug=True)

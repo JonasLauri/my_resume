@@ -1,5 +1,7 @@
 /* VARIABLES */
 $font: "Poppins", sans-serif;
+$color222: #222222;
+$bgColor: #f9f9ff;
 
 /* GLOBALS */
 body {
@@ -20,7 +22,7 @@ body {
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
     a {
         text-decoration: none;
-        color: #222222;
+        color: $color222;
     }
     #logo {
         font-family: $font;
@@ -30,18 +32,25 @@ body {
     #resumeBtn:hover {
         color: #ffffff;
     }
+    .custom-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(34,34,34, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+      }
+      
+    .custom-toggler.navbar-toggler {
+        border-color: $color222;
+      } 
 }
 .banner-area {
     background-color: #f9f9ff;
     h5 {
-        color: #222222;
+        color: $color222;
         font-family: $font;
         font-size: 16px;
         font-weight: 600;
     }
     h2 {
         font-family: $font;
-        color: #222222;
+        color: $color222;
         font-size: 30px;
         font-weight: 600;
     }
@@ -52,4 +61,13 @@ body {
 }
 .banner-area .fullscreen {
     height: 650px !important;
+}
+
+.section-gap {
+    padding: 80px 0;
+    h2 {
+        font-family: $font;
+        font-weight: 600;
+        color: $color222;
+    }
 }

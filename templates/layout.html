@@ -21,14 +21,14 @@
 		<!-- CSS styles -->
 			
     <link rel="stylesheet" href="/static/styles/bootstrap.css">										
-		<link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/styles/main.css') }}">
   </head>
 
   <body>
     <!-- Navigation header -->
     <nav id="nav" class="navbar navbar-expand-md sticky-top">
       <a id="logo" class="navbar-brand" href="/">J. Laurinaitis</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,7 +41,7 @@
             <a class="nav-link" href="#">Portfolio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+            <a class="nav-link" href="{{ url_for('blog') }}">Blog</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About me</a>
@@ -61,7 +61,7 @@
         </ul>
       </div>
     </nav>
-    <!-- Navigation header -->
+    <!-- End navigation header -->
 
     <main>
       {% block main %}{% endblock %}
