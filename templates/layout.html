@@ -1,54 +1,76 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <!-- Mobile Specific Meta -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Favicon-->
-		<link rel="shortcut icon" href="#"> 
-		<!-- Author Meta -->
-		<meta name="author" content="Jonas Laurinaitis">
-		<!-- Meta Description -->
-		<meta name="description" content="A personal website built and deploy by Jonas Laurinaitis">
-		<!-- Meta Keyword -->
-		<meta name="keywords" content="Portfolio, Resume">
-		<!-- meta character set -->
-		<meta charset="UTF-8">
-		<!-- Site Title -->
-		<title>Jonas Laurinaitis</title>
+<head>
+  <!-- Mobile Specific Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="#">
+  <!-- Author Meta -->
+  <meta name="author" content="Jonas Laurinaitis">
+  <!-- Meta Description -->
+  <meta name="description" content="A personal website built and deploy by Jonas Laurinaitis">
+  <!-- Meta Keyword -->
+  <meta name="keywords" content="Portfolio, Resume">
+  <!-- meta character set -->
+  <meta charset="UTF-8">
+  <!-- Site Title -->
+  {% if title %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title>Jonas Laurinaitis</title>
+  {% endif %}
 
-    <!-- Google fonts cdn-->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-		<!-- CSS styles -->
-		<link rel="stylesheet" href="/static/styles/bootstrap.css">										
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/styles/main.css') }}">
-  </head>
+  <!-- Google fonts cdn-->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+  <!-- CSS styles -->
+  <link rel="stylesheet" href="/static/styles/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/styles/main.css') }}">
+</head>
 
-  <body>
-    <!-- Navigation header -->
-    {% include 'includes/_navbar.html' %}
-    <!-- End navigation header -->
+<body>
+  <!-- Navigation header -->
+  {% include 'includes/_navbar.html' %}
+  <!-- End navigation header -->
 
+  <!-- Flashing messages area-->
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="my-3 alert alert-{{ category }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+  <!-- End flashing messages area-->
 
-    <!-- Main content-->
-    <main>
+  <!-- Main content-->
+  <main>
     {% block main %}{% endblock %}
-    </main>
-    <!-- End main content-->
+  </main>
+  <!-- End main content-->
+
+  <!-- Footer -->
+  <footer class="small text-center text-muted">
+    <p class="copyright">Copyright &copy; 2020 | Jonas Laurinaitis</p>
+  </footer>
+  <!-- End footer-->
 
 
-    <!-- Footer -->
-    <footer class="small text-center text-muted">
-        <p class="copyright">Copyright &copy; 2020 | Jonas Laurinaitis</p>
-    </footer>
-    <!-- End footer-->
-    
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+</body>
 
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
 </html>
