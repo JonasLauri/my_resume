@@ -1,12 +1,5 @@
 {
     "python.pythonPath": "/Users/jonaslaurinaitis/Desktop/core/projectsFlask/my_resume/env/bin/python",
-
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint-flask",
-        "pyling-flask-sqlalchemy"
-    ],
-    
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true
 }
