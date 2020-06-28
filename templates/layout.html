@@ -59,7 +59,11 @@
   </footer>
   <!-- End footer-->
 
-
+  <!-- Importing moment.js script for flask-moment-->
+  {% block scripts %}
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+  {% endblock %}
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

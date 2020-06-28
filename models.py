@@ -1,10 +1,13 @@
-import datetime
+from datetime import datetime
 import re
 from app import db
 
 # Format title string to url by given expression
 def to_url(title):
     return re.sub('[^\w]+', '-', title).lower()
+
+# Current date var
+now = datetime.now()
 
 # Defining intermediary table which reference blog entries with specific tag
 entry_tags = db.Table('entry_tags',
@@ -22,11 +25,11 @@ class Entry(db.Model):
     slug = db.Column(db.String(100))
     body = db.Column(db.Text)
     status = db.Column(db.SmallInteger, default=STATUS_PUBLIC)
-    created_timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
+    created_timestamp = db.Column(db.DateTime, default=datetime.now())
     modified_timestamp = db.Column(
         db.DateTime,
-        default=datetime.datetime.now,
-        onupdate=datetime.datetime.now)
+        default=datetime.now(),
+        onupdate=datetime.now())
     
     tags = db.relationship('Tag', secondary=entry_tags,
         backref=db.backref('entries', lazy='dynamic'))

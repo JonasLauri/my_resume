@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<!-- List posts -->
+{% for entry in object_list.items %}
+     <div class="card mb-4">
+        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+        <div class="card-body">
+          <h2 class="card-title">{{ entry.title }}</h2>
+          <p class="card-text">{{ entry.body }}</p>
+          <a href="{{ url_for('entries.detail', slug=entry.slug) }}" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+          Posted on {{ moment(entry.created_timestamp).format('LL') }} by Jonas
+        </div>
+      </div>
+{% endfor %}
+<!-- End ist posts -->
+
+   

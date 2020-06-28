@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+
+{% block main %}
+<!-- Blog  page -->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries column -->
+        <div class="col-md-8">
+            <h2 class="my-4">Blog entries
+                <small>Secondary Text</small>
+            </h2>
+
+            {% include "includes/_list.html" %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
