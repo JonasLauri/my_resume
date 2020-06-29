@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+
+<form class="my-4" method="GET" role="form">
+    <div class="input-group">
+        <input style="padding: 10px;" name="q" class="form-control" placeholder="Search for..." value="{{ request.args.get('q', '') }}">
+        <div class="input-group-append">
+            <button style="padding: 10px;" class="btn btn-secondary" type="submit">Search</button>
+        </div>
+    </div>
+</form>

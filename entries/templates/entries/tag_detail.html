@@ -5,12 +5,20 @@
 <!-- Category Page -->
 <div class="container">
     <div class="row">
-        <!-- Category -->
+
+        <!-- Posts Column -->
         <div class="col-md-8">
             <h2 class="my-4"> {{ tag.name }}
                 <small>category</small>
             </h2>
             {% include "includes/_list.html" %}
+        </div>
+
+
+        <!-- Sidebar Column -->
+        <div class="col-md-4">
+            <!-- Search Widget -->
+            {% include "includes/_search.html" %}
         </div>
     </div>
 </div>
