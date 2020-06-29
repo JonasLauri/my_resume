@@ -25,7 +25,7 @@ class Entry(db.Model):
     slug = db.Column(db.String(100))
     body = db.Column(db.Text)
     status = db.Column(db.SmallInteger, default=STATUS_PUBLIC)
-    created_timestamp = db.Column(db.DateTime, default=datetime.now())
+    created_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     modified_timestamp = db.Column(
         db.DateTime,
         default=datetime.now(),

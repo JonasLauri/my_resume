@@ -10,7 +10,7 @@
           <a href="{{ url_for('entries.detail', slug=entry.slug) }}" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
-          Posted on {{ moment(entry.created_timestamp).format('LL') }} by Jonas
+          Posted on {{ entry.created_timestamp.strftime('%B %d, %Y') }} by Jonas
         </div>
       </div>
 {% endfor %}
