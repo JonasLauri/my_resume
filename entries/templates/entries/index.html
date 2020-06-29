@@ -2,19 +2,57 @@
 
 
 {% block main %}
-<!-- Blog  page -->
+<!-- Main Blog Page -->
 <div class="container">
     <div class="row">
-        <!-- Blog entries column -->
-        <div class="col-md-8">
-            <h2 class="my-4">Blog entries
-                <small>Secondary Text</small>
-            </h2>
 
+        <!-- Post Entries Column -->
+        <div class="col-md-8">
+            <h2 class="my-4">Blog</h2>
+            <hr>
+            <p class="lead" style="margin-bottom: 16px;">All blog posts</p>
             {% include "includes/_list.html" %}
         </div>
+
+
+        <!-- Sidebar Column -->
+        <div class="col-md-4">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Search</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-append">
+                            <button class="btn btn-secondary" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Posts Categories -->
+            <div class="card my-4">
+                <h5 class="card-header"><a href="{{ url_for('entries.tag_index') }}">Categories</a></h5>
+                <div class="card-body py-2">
+                    <ul class="list-unstyled mb-0">
+                        {% for tag in tags %}
+                        <li><a href="{{ url_for('entries.tag_detail', slug=tag.slug)
+                            }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Side Widget</h5>
+                <div class="card-body">
+                    You can put anything you want inside of these side widgets. They are easy to use, and feature
+                    the new Bootstrap 4 card containers!
+                </div>
+            </div>
+        </div>
+    
+    <!-- End Row -->
     </div>
+<!-- End Container -->
 </div>
-
-
 {% endblock %}
