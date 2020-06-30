@@ -4,24 +4,25 @@
 {% block main %}
 <!-- Categories Page -->
 <div class="container">
-    <div class="row">
-        
-        <div class="col-12">
-            <div class="card my-4">
-                <h5 class="card-header">Categories</h5>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        {% for tag in object_list.items %}
-                        <li class="card-title"><a href="{{ url_for('entries.tag_detail', slug=tag.slug)
+  <div class="row">
+
+    <div class="col-12">
+      <div class="card my-4">
+        <h5 class="card-header">Categories</h5>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            {% for tag in object_list.items %}
+            <li class="card-title"><a href="{{ url_for('entries.tag_detail', slug=tag.slug)
                             }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+            {% endfor %}
+          </ul>
         </div>
-    
-    <!-- End Row -->
+      </div>
+      {% include "includes/_page_links.html" %}
     </div>
-<!-- End Container -->
+
+    <!-- End Row -->
+  </div>
+  <!-- End Container -->
 </div>
 {% endblock %}

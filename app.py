@@ -23,7 +23,3 @@ import models
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
-
-# SECRET_KEY = '91f3cd4f5c6b411e7c60794b3d9d31af'
-
-
