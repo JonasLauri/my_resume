@@ -1,0 +1,21 @@
+{% extends "layoutfooteroff.html" %}
+
+{% block main %}
+<!-- Edit Form Page -->
+<section class="delele-form">
+  <div class="container">
+    <h1 class="mt-4">{{ entry.title }}</h1>
+
+    <form action="{{ url_for('entries.delete', slug=entry.slug) }}" method="POST" novalidate>
+      <fieldset>
+        <legend>Delete this entry?</legend>
+        <button class="btn btn-danger" type="submit">Delete</button>
+        <a class="btn" href="{{ url_for('entries.detail', slug=entry.
+           slug) }}">Cancel</a>
+      </fieldset>
+    </form>
+
+    <!-- End Container -->
+  </div>
+</section>
+{% endblock %}

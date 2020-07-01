@@ -1,14 +1,19 @@
-from flask import Blueprint, render_template, request, flash
+from app import db
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 
 from helpers import object_list
 from models import Entry, Tag
 from entries.forms import EntryForm
 
-# Make blueprints 
+# INIT BLUEPRINTS
 entries = Blueprint('entries', __name__, template_folder='templates')
 
+
+# HELPER FUNCTIONS
 # Helper function for additionaly filter results based on search query - 'q'
 def entry_list(template, query, **context):
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT)
+    query = query.filter(Entry.status.in_(valid_statuses))
     results = []
     search = request.args.get('q')
     if search:
@@ -19,6 +24,11 @@ def entry_list(template, query, **context):
         if not results:
             flash(f'There were no matches for your search "{search}".', 'danger')
     return object_list(template, query, **context)
+
+def get_entry_or_404(slug):
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) 
+    query = (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
+    return query
 
 
 # URL ROUTES
@@ -39,12 +49,51 @@ def tag_detail(slug):
     entries = tag.entries.order_by(Entry.created_timestamp.desc())
     return entry_list('entries/tag_detail.html', entries, tag=tag, title="Blog Category - " + tag.name)
 
-@entries.route('/create/')
+# Create
+@entries.route('/create/', methods=['GET', 'POST'])
 def create():
-    form = EntryForm()
+    if request.method == 'POST':
+        form = EntryForm(request.form)
+        if form.validate():
+            entry = form.save_entry(Entry())
+            db.session.add(entry)
+            db.session.commit()
+            return redirect(url_for('entries.detail', slug=entry.slug))
+    else:
+        form = EntryForm()
+    
     return render_template('entries/create.html', form=form, title="Create New Post")
 
+# POST- detail view   
 @entries.route('/<slug>/')
 def detail(slug):
-    entry = Entry.query.filter(Entry.slug == slug).first_or_404()
+    entry = get_entry_or_404(slug)
     return render_template('entries/detail.html', entry=entry, title="Blog Post - " + entry.title)
+
+# Edit
+@entries.route('/<slug>/edit/', methods=['GET', 'POST'])
+def edit(slug):
+    entry = get_entry_or_404(slug)
+    if request.method == 'POST':
+        form = EntryForm(request.form, obj=entry)
+        if form.validate():
+            entry = form.save_entry(entry)
+            db.session.add(entry)
+            db.session.commit()
+            return redirect(url_for('entries.detail', slug=entry.slug))
+    else:
+        form = EntryForm(obj=entry)
+    
+    return render_template('entries/edit.html', entry=entry, form=form, title="Edit " + entry.title)
+
+# Delete
+@entries.route('/<slug>/delete/', methods=['GET', 'POST'])
+def delete(slug):
+    entry = get_entry_or_404(slug)
+    if request.method == 'POST':
+        entry.status = Entry.STATUS_DELETED
+        db.session.add(entry)
+        db.session.commit()
+        return redirect(url_for('entries.index'))
+
+    return render_template('entries/delete.html', entry=entry)

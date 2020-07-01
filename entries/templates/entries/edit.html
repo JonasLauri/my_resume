@@ -2,21 +2,21 @@
 {% from "macros/form_field.html" import form_field %}
 
 {% block main %}
-<!-- Entries Create Form Page -->
-<section class="register-form">
+<!-- Edit Form Page -->
+<section class="edit-form">
   <div class="container">
 
     <form action="{{ url_for('entries.create') }}" method="POST" novalidate>
       <div class="form-group">
-        <legend class="border-bottom my-4 pb-2">Create New Post Entry</legend>
+        <legend class="border-bottom my-4"><span class="h3">Edit:</span> <small class="text-muted">{{ entry.title }}</small></legend>
         {% for field in form %}
           {{ form_field(field) }}
         {% endfor %}
       </div>
       <div class="form-group">
         <div class="col-sm-3 col-sm-9 p-0">
-          <button type="submit" class="btn btn-success">Create</button>
-          <a class="btn btn-outline-success" href="{{ url_for('entries.index')}}">Cancel</a>
+          <button type="submit" class="btn btn-success">Save</button>
+          <a class="btn btn-outline-success" href="{{ url_for('entries.detail', slug=entry.slug) }}">Cancel</a>
         </div>
       </div>
     </form>
@@ -25,4 +25,3 @@
   </div>
 </section>
 {% endblock %}
-

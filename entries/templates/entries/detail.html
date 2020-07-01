@@ -4,53 +4,55 @@
 {% block main %}
 <!-- Post Detail Page -->
 <div class="container">
-    <div class="row">
+  <div class="row">
 
-        <!-- Content Column -->
-        <div class="col-md-8">
-            <!-- Title -->
-            <h1 class="mt-4">{{ entry.title }}</h1>
-            <!-- Author -->
-            <p class="lead"> by <a href="{{ url_for('about')}}">Jonas</a></p>
-            <hr>
-            <!-- Date/Time -->
-            <p>Posted on {{ entry.created_timestamp.strftime('%B %d, %Y') }} at
-                {{ entry.created_timestamp.strftime('%H:%M') }}</p>
-            <hr>
-            <!-- Preview Image -->
-            <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="{{ entry.title }}">
-            <hr>
-            <p class=>{{ entry.body }}</p>
-            <hr>
-        </div>
+    <!-- Content Column -->
+    <div class="col-md-8">
+      <!-- Title -->
+      <h1 class="mt-4">{{ entry.title }}</h1>
+      <!-- Author -->
+      <div class="ro">
 
-        <!-- Sidebar Column -->
-        <div class="col-md-4">
-            <!-- Post Tags -->
-            <div class="card my-4">
-                <h5 class="card-header"><a href="{{ url_for('entries.tag_index') }}">Categories</a></h5>
-                <div class="card-body">
-                    <ul class="list-unstyled mb-0">
-                        {% for tag in entry.tags %}
-                        <li><a href="{{ url_for('entries.tag_detail', slug=tag.slug)
+      </div>
+      <p class="lead"> by <a href="{{ url_for('about')}}">Jonas</a></p>
+      <hr>
+      <!-- Date/Time -->
+      <p>Posted on {{ entry.created_timestamp.strftime('%B %d, %Y') }} at
+        {{ entry.created_timestamp.strftime('%H:%M') }}</p>
+      <hr>
+      <!-- Preview Image -->
+      <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="{{ entry.title }}">
+      <hr>
+      <p class=>{{ entry.body }}</p>
+      <hr>
+    </div>
+
+    <!-- Sidebar Column -->
+    <div class="col-md-4">
+      <!-- Edit/Delete -->
+      <div class="card my-4">
+        <div class="h5 card-header">Post options</div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><a href="{{ url_for('entries.edit', slug=entry.slug) }}">Edit</a></li>
+          <li class="list-group-item"><a href="{{ url_for('entries.delete', slug=entry.slug) }}">Delete</a></li>
+        </ul>
+      </div>
+      <!-- Post Tags -->
+      <div class="card my-4">
+        <h5 class="card-header"><a href="{{ url_for('entries.tag_index') }}">Categories</a></h5>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            {% for tag in entry.tags %}
+            <li><a href="{{ url_for('entries.tag_detail', slug=tag.slug)
                             }}">{{ tag.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature
-                    the new Bootstrap 4 card containers!
-                </div>
-            </div>
+            {% endfor %}
+          </ul>
         </div>
+      </div>
+    </div>
 
     <!-- End Row -->
-    </div>
-<!-- End Container -->
+  </div>
+  <!-- End Container -->
 </div>
 {% endblock %}
