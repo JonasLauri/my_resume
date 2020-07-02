@@ -27,11 +27,11 @@ class Entry(db.Model):
     slug = db.Column(db.String(100))
     body = db.Column(db.Text)
     status = db.Column(db.SmallInteger, default=STATUS_PUBLIC)
-    created_timestamp = db.Column(db.DateTime, default=datetime.now())
+    created_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     modified_timestamp = db.Column(
         db.DateTime,
-        default=datetime.now(),
-        onupdate=datetime.now())
+        default=datetime.utcnow(),
+        onupdate=datetime.utcnow())
     
     tags = db.relationship('Tag', secondary=entry_tags,
         backref=db.backref('entries', lazy='dynamic'))
@@ -47,6 +47,10 @@ class Entry(db.Model):
 
     def __repr__(self):
         return '<Entry: %s>' % self.title
+
+    @property
+    def tag_list(self):
+        return ', '.join(tag.name for tag in self.tags)
 
 # Defining model for storing tags
 class Tag(db.Model):

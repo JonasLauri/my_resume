@@ -8,6 +8,7 @@
             }}</span>{% endfor %}
             {% else %}
             {{ field(class="form-control", **kwargs) }}
+            {% if field.description %}<span class="small">{{ field.description|safe }}</span>{% endif %}
             {% endif%}
         </div>
     </div>

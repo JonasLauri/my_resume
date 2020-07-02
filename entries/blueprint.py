@@ -77,7 +77,10 @@ def edit(slug):
     if request.method == 'POST':
         form = EntryForm(request.form, obj=entry)
         if form.validate():
-            entry = form.save_entry(entry)
+            entry.title = form.title.data
+            entry.body = form.body.data
+            entry.status = form.status.data
+            entry.tags = form.tags.data 
             db.session.add(entry)
             db.session.commit()
             entry.modified_timestamp = entry.modified_timestamp.strftime('%B %d, %Y %H:%M')
@@ -94,9 +97,10 @@ def edit(slug):
 def delete(slug):
     entry = get_entry_or_404(slug)
     if request.method == 'POST':
-        entry.status = Entry.STATUS_DELETED
+        # entry.status = Entry.STATUS_DELETED
         db.session.delete(entry)
         db.session.commit()
         flash('Entry "%s" has been deleted.' % entry.title, 'success')
         return redirect(url_for('entries.index'))
     return render_template('entries/delete.html', entry=entry)
+ 
