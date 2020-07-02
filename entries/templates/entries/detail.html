@@ -17,7 +17,8 @@
       <p class="lead"> by <a href="{{ url_for('about')}}">Jonas</a></p>
       <hr>
       <!-- Date/Time -->
-      <p>Posted on {{ entry.created_timestamp.strftime('%B %d, %Y') }} at
+      <p>Posted on 
+        {{ entry.created_timestamp.strftime('%B %d, %Y') }} at
         {{ entry.created_timestamp.strftime('%H:%M') }}</p>
       <hr>
       <!-- Preview Image -->

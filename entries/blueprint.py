@@ -1,8 +1,8 @@
-from app import db
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-
 from helpers import object_list
 from models import Entry, Tag
+from app import db
+from datetime import datetime
 from entries.forms import EntryForm
 
 # INIT BLUEPRINTS
@@ -27,8 +27,7 @@ def entry_list(template, query, **context):
 
 def get_entry_or_404(slug):
     valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) 
-    query = (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
-    return query
+    return (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
 
 
 # URL ROUTES
@@ -58,11 +57,12 @@ def create():
             entry = form.save_entry(Entry())
             db.session.add(entry)
             db.session.commit()
+            flash('Entry "%s" created successfully.' % entry.title, 'success')
             return redirect(url_for('entries.detail', slug=entry.slug))
     else:
         form = EntryForm()
-    
-    return render_template('entries/create.html', form=form, title="Create New Post")
+        return render_template('entries/create.html', form=form, title="Create New Post")
+
 
 # POST- detail view   
 @entries.route('/<slug>/')
@@ -80,11 +80,14 @@ def edit(slug):
             entry = form.save_entry(entry)
             db.session.add(entry)
             db.session.commit()
-            return redirect(url_for('entries.detail', slug=entry.slug))
+            entry.modified_timestamp = entry.modified_timestamp.strftime('%B %d, %Y %H:%M')
+            flash(f'Entry "{entry.title}" has been saved. Modified time: {entry.modified_timestamp}', 'success')
+            return redirect(url_for('entries.detail',
+            slug=entry.slug))
     else:
         form = EntryForm(obj=entry)
-    
-    return render_template('entries/edit.html', entry=entry, form=form, title="Edit " + entry.title)
+        return render_template('entries/edit.html', entry=entry,
+        form=form)
 
 # Delete
 @entries.route('/<slug>/delete/', methods=['GET', 'POST'])
@@ -92,8 +95,8 @@ def delete(slug):
     entry = get_entry_or_404(slug)
     if request.method == 'POST':
         entry.status = Entry.STATUS_DELETED
-        db.session.add(entry)
+        db.session.delete(entry)
         db.session.commit()
+        flash('Entry "%s" has been deleted.' % entry.title, 'success')
         return redirect(url_for('entries.index'))
-
     return render_template('entries/delete.html', entry=entry)

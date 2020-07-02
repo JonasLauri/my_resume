@@ -6,7 +6,7 @@
 <section class="edit-form">
   <div class="container">
 
-    <form action="{{ url_for('entries.create') }}" method="POST" novalidate>
+    <form action="{{ url_for('entries.edit', slug=entry.slug) }}" method="POST" novalidate>
       <div class="form-group">
         <legend class="border-bottom my-4"><span class="h3">Edit:</span> <small class="text-muted">{{ entry.title }}</small></legend>
         {% for field in form %}

@@ -1,5 +1,6 @@
 from datetime import datetime
 import re
+import pytz
 from app import db
 
 # Format title string to url by given expression
@@ -26,7 +27,7 @@ class Entry(db.Model):
     slug = db.Column(db.String(100))
     body = db.Column(db.Text)
     status = db.Column(db.SmallInteger, default=STATUS_PUBLIC)
-    created_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    created_timestamp = db.Column(db.DateTime, default=datetime.now())
     modified_timestamp = db.Column(
         db.DateTime,
         default=datetime.now(),
