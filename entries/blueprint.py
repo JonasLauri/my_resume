@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from werkzeug.utils import secure_filename
 from helpers import object_list
 from models import Entry, Tag
 from app import db
