@@ -2,7 +2,6 @@ import os
 
 # This file contains instructions for flask app
 
-
 class Configuration(object):
     APP_DIR = os.path.dirname(os.path.realpath(__file__))
     DEBUG = True

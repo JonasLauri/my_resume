@@ -83,8 +83,7 @@ def edit(slug):
             entry.tags = form.tags.data 
             db.session.add(entry)
             db.session.commit()
-            entry.modified_timestamp = entry.modified_timestamp.strftime('%B %d, %Y %H:%M')
-            flash(f'Entry "{entry.title}" has been saved. Modified time: {entry.modified_timestamp}', 'success')
+            flash(f'Entry "{entry.title}" has been saved.', 'success')
             return redirect(url_for('entries.detail',
             slug=entry.slug))
     else:

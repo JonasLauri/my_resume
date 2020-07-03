@@ -15,7 +15,6 @@ app.config.from_object(Configuration)
 # For date and time formating
 moment = Moment(app)
 
-
 # Init sqlalchemy for managing db
 db = SQLAlchemy(app)
 import models
