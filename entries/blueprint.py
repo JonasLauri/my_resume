@@ -61,7 +61,8 @@ def create():
             return redirect(url_for('entries.detail', slug=entry.slug))
     else:
         form = EntryForm()
-        return render_template('entries/create.html', form=form, title="Create New Post")
+    
+    return render_template('entries/create.html', form=form, title="Create New Post")
 
 
 # POST- detail view   
@@ -88,8 +89,8 @@ def edit(slug):
             slug=entry.slug))
     else:
         form = EntryForm(obj=entry)
-        return render_template('entries/edit.html', entry=entry,
-        form=form)
+
+    return render_template('entries/edit.html', entry=entry, form=form)
 
 # Delete
 @entries.route('/<slug>/delete/', methods=['GET', 'POST'])
@@ -101,5 +102,6 @@ def delete(slug):
         db.session.commit()
         flash('Entry "%s" has been deleted.' % entry.title, 'success')
         return redirect(url_for('entries.index'))
+    
     return render_template('entries/delete.html', entry=entry)
  
