@@ -1,10 +1,11 @@
-import wtforms
+import wtforms 
 from wtforms.validators import DataRequired
-from flask_wtf import File
-
+from flask_wtf.file import FileRequired, FileAllowed
+from flask_uploads import UploadSet, IMAGES
 
 from models import Entry, Tag
 
+images = UploadSet('images', IMAGES)
 
 class TagField(wtforms.StringField):
     def _value(self):
@@ -36,13 +37,16 @@ class TagField(wtforms.StringField):
 class EntryForm(wtforms.Form):
     title = wtforms.StringField('Title', validators=[DataRequired()])
     body = wtforms.TextAreaField('Body', validators=[DataRequired()])
-    status = wtforms.SelectField(
-        'Entry status',
+    status = wtforms.SelectField('Entry status',
         choices=(
             (Entry.STATUS_PUBLIC, 'Public'),
             (Entry.STATUS_DRAFT, 'Draft')),
         coerce=int)
-    post_image = FileField()
+    post_image = wtforms.FileField('Post Image', validators=[
+        FileRequired(),
+        FileAllowed(images, 'Images only!')
+        ])
+
     tags = TagField('Tags', description='Seperate multiple tags with commas')
 
     def save_entry(self, entry):

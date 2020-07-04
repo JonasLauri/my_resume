@@ -1,8 +1,9 @@
+import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from werkzeug.utils import secure_filename
 from helpers import object_list
 from models import Entry, Tag
-from app import db
+from app import app, db
 from datetime import datetime
 from entries.forms import EntryForm
 
@@ -30,7 +31,10 @@ def get_entry_or_404(slug):
     valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) 
     return (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
 
-
+def allowed_image(filename):
+    if not "." in filename:
+        return False
+       
 # URL ROUTES
 @entries.route('/')
 def index():
@@ -55,7 +59,17 @@ def create():
     if request.method == 'POST':
         form = EntryForm(request.form)
         if form.validate():
-            entry = form.save_entry(Entry())
+            image_file = request.files['post_image']
+            filename_path = os.path.join(app.config['IMAGES_DIR'], secure_filename(image_file.filename))
+            image_file.save(filename_path)
+            img_url = image_file.filename
+            entry = Entry(
+                title=form.title.data,
+                body=form.title.data,
+                image_url=img_url,
+                status=form.status.data,
+                tags=form.tags.data
+                )
             db.session.add(entry)
             db.session.commit()
             flash('Entry "%s" created successfully.' % entry.title, 'success')

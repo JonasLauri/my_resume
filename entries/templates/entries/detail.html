@@ -22,7 +22,7 @@
         {{ entry.created_timestamp.strftime('%H:%M') }}</p>
       <hr>
       <!-- Preview Image -->
-      <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="{{ entry.title }}">
+      <img class="img-fluid rounded" src="{{ url_for('static', filename='/img/' + entry.image_url )}}" alt="{{ entry.title }}">
       <hr>
       <p class=>{{ entry.body }}</p>
       <hr>

@@ -26,6 +26,7 @@ class Entry(db.Model):
     title = db.Column(db.String(100))
     slug = db.Column(db.String(100))
     body = db.Column(db.Text)
+    image_url = db.Column(db.String(100))
     status = db.Column(db.SmallInteger, default=STATUS_PUBLIC)
     created_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     modified_timestamp = db.Column(

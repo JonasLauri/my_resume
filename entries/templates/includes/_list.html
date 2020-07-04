@@ -3,8 +3,8 @@
 
 <!-- List posts -->
 {% for entry in object_list.items %}
+<img class="img-fluid rounded mb-1" src="{{ url_for('static', filename='/img/' + entry.image_url )}}" alt="{{ entry.title }}"> 
      <div class="card mb-4">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
         <div class="card-body">
           <h2 class="card-title">{{ entry.title }}</h2>
           <p class="card-text">{{ entry.body }}</p>
