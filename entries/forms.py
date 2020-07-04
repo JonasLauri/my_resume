@@ -1,5 +1,6 @@
 import wtforms
 from wtforms.validators import DataRequired
+from flask_wtf import File
 
 
 from models import Entry, Tag
@@ -41,7 +42,7 @@ class EntryForm(wtforms.Form):
             (Entry.STATUS_PUBLIC, 'Public'),
             (Entry.STATUS_DRAFT, 'Draft')),
         coerce=int)
-    
+    post_image = FileField()
     tags = TagField('Tags', description='Seperate multiple tags with commas')
 
     def save_entry(self, entry):
