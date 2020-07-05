@@ -1,5 +1,4 @@
 {% extends "layoutfooteroff.html" %}
-{% from "macros/form_field.html" import form_field %}
 
 {% block main %}
 <!-- Edit Form Page -->
@@ -9,9 +8,51 @@
     <form action="{{ url_for('entries.edit', slug=entry.slug) }}" method="POST" novalidate>
       <div class="form-group">
         <legend class="border-bottom my-4"><span class="h3">Edit:</span> <small class="text-muted">{{ entry.title }}</small></legend>
-        {% for field in form %}
-          {{ form_field(field) }}
-        {% endfor %}
+        <div class="form-group">
+          {{ form.title.label(class="form-control-label") }}
+
+          {% if form.title.errors %}
+          {{ form.title(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+          {{ form.title(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.body.label(class="form-control-label") }}
+
+          {% if form.body.errors %}
+          {{ form.body(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.body.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+          {{ form.body(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.status.label(class="form-control-label") }}
+          {{ form.status(class="form-control") }}
+        </div>
+        <div class="form-group">
+          <label>Post Image</label>
+          <select multiple class="form-control">
+              <option>{{ entry.image_url }}</option>
+          </select>
+          <small class="form-text text-muted">Post picture not editable</small>
+        </div>
+        <div class="form-group">
+          {{ form.tags.label(class="form-control-label") }}
+          {{ form.tags(class="form-control") }}
+          <small class="form-text text-muted">{{ form.tags.description|safe }}</small>
+        </div>
+        
       </div>
       <div class="form-group">
         <div class="col-sm-3 col-sm-9 p-0">
