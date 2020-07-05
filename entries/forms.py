@@ -39,7 +39,7 @@ class EntryForm(wtforms.Form):
             (Entry.STATUS_PUBLIC, 'Public'),
             (Entry.STATUS_DRAFT, 'Draft')),
         coerce=int)
-    post_image = wtforms.FileField('Post Image')
+    post_image = wtforms.FileField('Post Image', description="Only 'png', 'jpg', 'jpeg', 'gif' formats.")
 
     tags = TagField('Tags', description='Seperate multiple tags with commas')
 

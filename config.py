@@ -11,3 +11,4 @@ class Configuration(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = '91f3cd4f5c6b411e7c60794b3d9d31af'
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+    ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']

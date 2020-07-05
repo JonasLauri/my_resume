@@ -4,7 +4,6 @@ from werkzeug.utils import secure_filename
 from helpers import object_list
 from models import Entry, Tag
 from app import app, db
-from datetime import datetime
 from entries.forms import EntryForm
 
 # INIT BLUEPRINTS
@@ -27,14 +26,16 @@ def entry_list(template, query, **context):
             flash(f'There were no matches for your search "{search}".', 'danger')
     return object_list(template, query, **context)
 
+# Recheck database for specific entry slug with valid status
 def get_entry_or_404(slug):
     valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) 
     return (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
 
+# Checks if images has right format
 def allowed_image(filename):
-    if not "." in filename:
-        return False
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
        
+
 # URL ROUTES
 @entries.route('/')
 def index():
@@ -60,6 +61,12 @@ def create():
         form = EntryForm(request.form)
         if form.validate():
             image_file = request.files['post_image']
+            if image_file.filename == '':
+                flash('No selected file!', 'danger')
+                return redirect(request.url)
+            if not allowed_image(image_file.filename):
+                flash("Wrong image format! Only 'png', 'jpg', 'jpeg', 'gif' formats.", "danger")
+                return redirect(request.url)
             filename_path = os.path.join(app.config['IMAGES_DIR'], secure_filename(image_file.filename))
             image_file.save(filename_path)
             img_url = image_file.filename
@@ -74,6 +81,7 @@ def create():
             db.session.commit()
             flash('Entry "%s" created successfully.' % entry.title, 'success')
             return redirect(url_for('entries.detail', slug=entry.slug))
+
     else:
         form = EntryForm()
     
