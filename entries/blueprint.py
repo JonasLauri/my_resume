@@ -41,12 +41,15 @@ def allowed_image(filename):
 def index():
     entries = Entry.query.order_by(Entry.created_timestamp.desc())
     tags = Tag.query.order_by(Tag.name.asc())
-    return entry_list('entries/index.html', entries, title='Jonas Laurinaitis - Blog Posts', tags=tags)
+    tags_index = [len(tag.entries.all()) for tag in tags]
+    return entry_list('entries/index.html', entries,
+        title='Jonas Laurinaitis - Blog Posts', tags=zip(tags, tags_index))
 
 @entries.route('/categories/')
 def tag_index():
-    tags = Tag.query.order_by(Tag.name.asc())
-    return object_list('entries/tag_index.html', tags, title= "Blog Categories")
+    tags = Tag.query.order_by(Tag.name.asc() )
+    tags_index = [len(tag.entries.all()) for tag in tags]
+    return object_list('entries/tag_index.html', tags, title= "Blog Categories", tags_index=tags_index )
 
 @entries.route('/category/<slug>/')
 def tag_detail(slug):
