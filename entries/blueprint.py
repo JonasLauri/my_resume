@@ -34,20 +34,33 @@ def get_entry_or_404(slug):
 # Checks if images has right format
 def allowed_image(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-       
+
+# Entries count of particular tag
+def tag_indexing(tags):
+    tags_index = []
+    for tag in tags:
+        # If entries of tag == 0 then delete this tag
+        if tag.entries.count() == 0:
+            db.session.delete(tag)
+        tags_index.append(tag.entries.count())
+    db.session.commit()
+    while 0 in tags_index:
+        tags_index.remove(0)
+    return tags_index
+
 
 # URL ROUTES
 @entries.route('/')
 def index():
     entries = Entry.query.order_by(Entry.created_timestamp.desc())
-    tags = Tag.query.order_by(Tag.name.asc())
-    tags_index = [len(tag.entries.all()) for tag in tags]
+    tags = Tag.query.order_by(Tag.name.asc()).all()
+    tags_index = tag_indexing(tags)
     return entry_list('entries/index.html', entries,
         title='Jonas Laurinaitis - Blog Posts', tags=zip(tags, tags_index))
 
 @entries.route('/categories/')
 def tag_index():
-    tags = Tag.query.order_by(Tag.name.asc() )
+    tags = Tag.query.order_by(Tag.name.asc())
     tags_index = [len(tag.entries.all()) for tag in tags]
     return object_list('entries/tag_index.html', tags, title= "Blog Categories", tags_index=tags_index )
 
