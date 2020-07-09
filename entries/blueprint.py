@@ -103,7 +103,6 @@ def create():
     
     return render_template('entries/create.html', form=form, title="Create New Post")
 
-
 # POST- detail view   
 @entries.route('/<slug>/')
 def detail(slug):
