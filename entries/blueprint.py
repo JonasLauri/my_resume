@@ -88,7 +88,7 @@ def create():
             img_url = image_file.filename
             entry = Entry(
                 title=form.title.data,
-                body=form.title.data,
+                body=form.body.data,
                 image_url=img_url,
                 status=form.status.data,
                 tags=form.tags.data
@@ -136,7 +136,8 @@ def edit(slug):
 def delete(slug):
     entry = get_entry_or_404(slug)
     if request.method == 'POST':
-        # entry.status = Entry.STATUS_DELETED
+        filename_path = os.path.join(app.config['IMAGES_DIR'], entry.image_url)
+        os.remove(filename_path)
         db.session.delete(entry)
         db.session.commit()
         flash('Entry "%s" has been deleted.' % entry.title, 'success')
