@@ -1,6 +1,28 @@
 {% extends "layout.html" %}
 
 {% block main  %}
+<style>
+  .projects-content {
+  padding: 40px 0 70px 0;
+}
+
+.projects-row {
+  margin: 30px 0 30px 0;
+}
+.portfolio-img {
+  width: 100%;
+  height: 100%;
+  padding: 5px 5px 5px 5px;
+}
+.col-md-5 {
+  padding: 10px 20px 10px 20px;
+}
+
+.project-btn {
+  margin: 5px 0 5px 0;
+}
+</style>
+
 <header style="background-color: #f9f9ff; color: #222222; padding: 100px 0;">
   <div class="container text-center">
     <h1>Projects</h1>
@@ -8,20 +30,65 @@
   </div>
 </header>
 
-<section class="projects" style="padding: 50px 0 50px 0;">
-  {% for project in projects %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 mx-auto">
-        <h2>{{ project[0] }} </h2>
-        <h6>Jonas Laurinaitis on {{project[5]}}</h6>
-        <a href="{{ project[4] }}" class="btn btn-dark">Code here</a>
-        <a href="#" class="btn btn-dark">Read more</a>
+<section class="projects-content">
+  <div class="container p-0">
+    {% for two_projects in projects%}
+      <div class="row projects-row justify-content-center">
+        {% if two_projects[1][0] == 'Additional_list' %}
+          <div class="col-12 col-md-5">
+            <div class="text-center">
+              <a href="#" class="title-link"><h5>{{ two_projects[0][0] }}</h5></a>
+              <p class="project-desc">
+                {{ two_projects[0][1] }}
+              </p>
+              <p class="skills">
+                <span class="bold">Skills:</span> {{ two_projects[0][2] }}
+              </p>
+            </div>
+            <div class="row">
+              <a href="#"><img class="portfolio-img" src="/static/img/{{ two_projects[0][3] }}" alt=""></a>
+            </div>
+            <div class="row">
+              <div class="col-6 text-center">
+                <a class="btn btn-dark project-btn" href="#">Read More</a>
+              </div>
+              <div class="col-6 text-center">
+                <a class="btn btn-dark project-btn" href="{{ two_projects[0][4] }}" target="_blank">Code</a>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          {% for project in two_projects %}
+            <div class="col-12 col-md-5">
+              <div class="text-center">
+                <a href="#" class="title-link"><h5>{{ project[0] }}</h5></a>
+                <p class="project-desc">
+                  {{ project[1] }}
+                </p>
+                <p class="skills">
+                  <span class="bold">Skills:</span> {{ project[2] }}
+                </p>
+              </div>
+              <div class="row">
+                <a href="#"><img class="portfolio-img" src="/static/img/{{ project[3] }}" alt=""></a>
+              </div>
+              <div class="row">
+                <div class="col-6 text-center">
+                  <a class="btn btn-dark project-btn" href="#">Read More</a>
+                </div>
+                <div class="col-6 text-center">
+                  <a class="btn btn-dark project-btn" href="{{ project[4] }}" target="_blank">Code</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif%}
       </div>
-    </div>
-    <hr>
+      <hr>
+    {% endfor %}
+  <!-- Container End -->
   </div>
-  {% endfor %}
+<!-- Section End -->
 </section>
 
 {% endblock %}

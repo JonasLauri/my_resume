@@ -14,7 +14,18 @@ def index():
 def about():
     return render_template('/about.html')
 
-@app.route('/portfolio')
+@app.route('/portfolio', methods=['POST', 'GET'])
 def portfolio():
     projects = helpers.get_portfolio_content()
-    return render_template('/portfolio.html', title='Projects - Jonas Laurinaitis', projects=projects)
+    # Make list of lists always even
+    if len(projects) % 2 == 0:
+        pass
+    else:
+        projects.append(['Additional_list'])
+
+    # Make iterable object
+    iterator = iter(projects)
+    # Aggregate two projects in zip 
+    zipped = zip(iterator, iterator)
+    
+    return render_template('/portfolio.html', title='Projects - Jonas Laurinaitis', projects=zipped)
