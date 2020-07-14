@@ -16,4 +16,5 @@ def about():
 
 @app.route('/portfolio')
 def portfolio():
-    return render_template('/portfolio.html', title='Projects - Jonas Laurinaitis')
+    projects = helpers.get_portfolio_content()
+    return render_template('/portfolio.html', title='Projects - Jonas Laurinaitis', projects=projects)

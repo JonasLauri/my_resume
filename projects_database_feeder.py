@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 import os
 
-# Read excel files
+# Read excel files to dataframes
 projects_df = pd.read_excel('projects/portfolio_db.xlsx', header=0)
 skills_df = pd.read_excel('projects/skills_db.xlsx', header=0)
 
@@ -38,12 +38,25 @@ def add_data_projects():
     c.execute("""DELETE FROM projects;""")
 
     # SQL statment
-    # sql = """ INSERT INTO projects(title, description, skills, image_url, code_url, date, categories) 
-    #         VALUES(?,?,?,?,?,?,?) """
-
-    # Write records from dataframe to sqlite database
-    projects_df.to_sql('projects', db_conn, if_exists='append', index=False)
+    sql = """ INSERT INTO projects(title, description, skills, image_url, code_url, date, categories) 
+        VALUES(?,?,?,?,?,?,?) """
     
+    # Iteration through dataframe
+    projects = []
+    for project_row in projects_df.itertuples():
+        projects.append(tuple([ project_row.title,
+           project_row.description,
+           project_row.skills,
+           project_row.image_url,
+           project_row.code_url,
+           project_row.date,
+           project_row.categories]))
+
+    # Data insertion
+    c.executemany(sql, projects)
+    db_conn.commit()
+
+
 def add_data_skills():
     # Delete projects table rows
     c.execute("""DELETE FROM skills;""")
@@ -51,7 +64,6 @@ def add_data_skills():
     # Write records from dataframe to sqlite database   
     skills_df.to_sql('skills', db_conn, if_exists='append', index=False)
     
-
 
 # Run SQL commands
 add_data_projects()

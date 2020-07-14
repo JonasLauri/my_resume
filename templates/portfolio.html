@@ -8,15 +8,18 @@
   </div>
 </header>
 
-<section class="projects">
+<section class="projects" style="padding: 50px 0 50px 0;">
   {% for project in projects %}
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2>Services we offer</h2>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+        <h2>{{ project[0] }} </h2>
+        <h6>Jonas Laurinaitis on {{project[5]}}</h6>
+        <a href="{{ project[4] }}" class="btn btn-dark">Code here</a>
+        <a href="#" class="btn btn-dark">Read more</a>
       </div>
     </div>
+    <hr>
   </div>
   {% endfor %}
 </section>
