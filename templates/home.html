@@ -10,7 +10,7 @@
                 <h5>I am</h5>
                 <h2 class="mt-10 mb-20">Jonas Laurinaitis</h2>
                 <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, modi.</p>
-                <a href="" class="btn btn-secondary text-uppercase mb-20">My projects</a>
+                <a href="{{ url_for('portfolio') }}" class="btn btn-secondary text-uppercase mb-20">My projects</a>
             </div>
             <div class="col-lg-6 col-md-6 col-xs-6 banner-right">
                 <img src="/static/img/laurinaitis3.jpg" alt="PersonalFoto" class="img-fluid">
@@ -33,7 +33,7 @@
                     reiciendis esse? Amet incidunt cum fuga nisi vel minima non quas illo, error quasi voluptate
                     tempore, ea veniam inventore fugiat. Mollitia et assumenda fugiat laudantium repellat.</p>
             </blockquote>
-            <a href="/about.html" class="btn btn-dark" role="button">About me</a>
+            <a href="{{ url_for('about') }}" class="btn btn-dark" role="button">About me</a>
         </div>
     </div>
 </section>
